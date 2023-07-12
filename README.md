@@ -22,7 +22,7 @@ To get started with this project, you will need to have the following installed 
 
 To build and run the project, follow these steps:
 
-* Clone the repository: `git clone https://github.com/karthikrasamsetti/security.git`
+* Clone the repository: `git clone https://github.com/karthikrasamsetti/spring-security-jwt.git`
 * Navigate to the project directory: cd security
 * Add database "security" to mysql 
 * Build the project: mvn clean install
