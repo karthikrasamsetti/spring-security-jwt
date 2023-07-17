@@ -20,12 +20,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
+//    Special book that holds information of users
     @Bean
     public UserDetailsService userDetailsService(){
         log.info("enter userDetailsService");
+//        getting data from the user repository
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(()->new UsernameNotFoundException("User Not Found"));
     }
+//    Detective-AuthenticationProvider is responsible for
+//    actually authenticating a user by checking their credentials
     @Bean
     public AuthenticationProvider authenticationProvider(){
         log.info("enter authenticationProvider");
@@ -34,12 +38,15 @@ public class ApplicationConfig {
         authProvider.setPasswordEncoder(passwordEncoder() );
         return authProvider;
     }
+//    Supervisor for detectives-
+//    AuthenticationManager is responsible for managing the
+//    authentication process by delegating the authentication to one or more AuthenticationProviders.
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         log.info("enter authenticationManager");
         return config.getAuthenticationManager();
     }
-
+//converting a password into a secret code to protect it from unauthorized access
     @Bean
     public PasswordEncoder passwordEncoder() {
         log.info("enter passwordEncoder");

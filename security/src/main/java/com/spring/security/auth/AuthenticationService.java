@@ -1,9 +1,9 @@
 package com.spring.security.auth;
 
-import com.spring.security.User.Role;
 import com.spring.security.User.User;
 import com.spring.security.User.UserRepository;
 import com.spring.security.config.JWTService;
+import com.spring.security.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,11 +42,18 @@ public class AuthenticationService {
                 new UsernamePasswordAuthenticationToken(request.email(),
                 request.password())
         );
+        log.info("user verified ");
         var user=userRepository.findByEmail(request.email()).orElseThrow();
         var jwtToken=jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .user(String.valueOf(user))
                 .build();
+    }
+
+    public User getById(int id){
+        log.info("enter into service getById User");
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+
     }
 }
