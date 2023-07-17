@@ -1,6 +1,5 @@
 package com.spring.security.exception;
 
-import java.util.function.Supplier;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException() {
